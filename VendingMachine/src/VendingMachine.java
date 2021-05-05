@@ -24,7 +24,7 @@ public class VendingMachine {
 		nickels = getUserInput();
 
 		userMoney = calculateTotalMoney(quarters, dimes, nickels);
-		
+		// temporery version
 		System.out.println("Your total is " + userMoney); //outputs to user his total money in the vending machine
 	}
 
