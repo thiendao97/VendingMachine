@@ -1,56 +1,54 @@
 import java.util.Scanner; //gets user inputs
 
 public class VendingMachine {
-	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in); //food choice from user
-		int cookieQuantity = 10;
-		int candyQuantity = 10;
-		int chipQuantity = 10;
-		int quarters;
-		int dimes;
-		int nickels;
-		double userMoney;
-		final double chipsPrice = 1.25;
-		final double candiesPrice = .95;
-		final double cookiesPrice = .85;
-		
-		
-		System.out.println("Please insert Quarters"); //tells user to insert his quarters;
-		quarters = getUserInput();
-		System.out.println("Please insert Dimes"); //tells user to insert his dimes;
-		dimes = getUserInput();
-		System.out.println("Please insert Nickels"); //tells user to insert his nickels;
-		nickels = getUserInput();
+		int cookiesQuantity = 10; // how many cookies are in the machine
+		int candiesQuantity = 10; // how many candies are in the machine
+		int chipsQuantity = 10; // how many chips are in the machine
+		int quarters; // whatever the user put into machine
+		int dimes; // whatever the user put into machine
+		int nickels; // whatever the user put into machine
+		double userMoney; // all of the users money after inputing all coins in the machine
+		final double chipsPrice = 1.25; // the price of chips that never changes
+		final double candiesPrice = .95; // the price of candies that never changes
+		final double cookiesPrice = .85; // the price of cookies that never changes
 
-		userMoney = calculateTotalMoney(quarters, dimes, nickels);
-		// temporery version
+// first menu screen for inserting coins
+		System.out.println("Please insert Quarters"); //tells user to insert his quarters;
+		quarters = getUserInput(); // goes back to method to see what getUserInput() is
+		System.out.println("Please insert Dimes"); //tells user to insert his dimes;
+		dimes = getUserInput(); // goes back to method to see what getUserInput() is
+		System.out.println("Please insert Nickels"); //tells user to insert his nickels;
+		nickels = getUserInput(); // goes back to method to see what getUserInput() is
+		userMoney = calculateTotalMoney(quarters, dimes, nickels); // this sums all coins to total value
 		System.out.println("Your total is " + userMoney); //outputs to user his total money in the vending machine
 	}
 
-	public static int getUserInput() {
-		Scanner sc = new Scanner(System.in);
-		int number;
+// Checks user validation by making sure user only inputs a positive int and nothing else
+	public static int getUserInput() { // name of method for user validation
+		Scanner sc = new Scanner(System.in); // implements user input
+		int number; // number that user typed
 		
-		do {
-			while (!sc.hasNextInt()) {
-				System.out.println("That's not a number!");
-				sc.next(); // this is important!
+		do { // does user validation first until user finally types in correctly in which it will return the correct value for inserting coin menu
+			while (!sc.hasNextInt()) { // if user puts in anything that's not an int. Returns true if the next token in this scanner's input can be interpreted as an int value
+				System.out.println("Please type a number"); // tells user it is not an int
+				sc.next(); // returns the question "please type a number" if you keep typing a word. However if you type two words it repeats the question twice.
 			}
-			number = sc.nextInt();
-			if (number < 0) {
-				System.out.println("Please enter 0 or more");
+			number = sc.nextInt(); // what ever int the user types is the number
+			if (number < 0) { // checks to see if number is negative
+				System.out.println("Please enter 0 or more"); // tells user to not type a negative number
 			}
-			
-		} while (number < 0);
-		//System.out.println("Thank you we have received " + number + " coins.\n");
-		return number;
+		}
+			 while (number < 0); // as long as the number is negative // ask tai
+		return number; // only return if user finally puts in correct int // ask tai
 	}
 	
-	public static double calculateTotalMoney(int quarters, int dimes, int nickels) {
+// Formula and method for calculating coins into money
+	public static double calculateTotalMoney(int quarters, int dimes, int nickels) { // name of method for calculating total money which includes the coin variables
 		double userMoney = (quarters * .25) + (dimes * .10) + (nickels * .05); //formula for finding total amount of money from coins
 		userMoney = Math.round(userMoney * 100.0) / 100.0; //rounds off two decimal places
-		return userMoney;
+		return userMoney; // returns to user the total amount after conversion from coins
 	}
 
 }
