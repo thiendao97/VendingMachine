@@ -33,15 +33,17 @@ public class VendingMachine {
 		do { // does user validation first until user finally types in correctly in which it will return the correct value for inserting coin menu
 			while (!sc.hasNextInt()) { // if user puts in anything that's not an int. Returns true if the next token in this scanner's input can be interpreted as an int value
 				System.out.println("Please type a number"); // tells user it is not an int
-				sc.next(); // returns the question "please type a number" if you keep typing a word. However if you type two words it repeats the question twice.
+				sc.nextLine(); // returns the question "please type a number" if you keep typing a word. However if you type two words it repeats the question twice.
 			}
 			number = sc.nextInt(); // what ever int the user types is the number
 			if (number < 0) { // checks to see if number is negative
-				System.out.println("Please enter 0 or more"); // tells user to not type a negative number
+				System.out.println("Please enter 0 or more\n"); // tells user to not type a negative number
+			    sc.nextLine();
 			}
 		}
-			 while (number < 0); // as long as the number is negative // ask tai
-		return number; // only return if user finally puts in correct int // ask tai
+		while (number < 0);
+		
+		return number; // only return if user finally puts correct int
 	}
 	
 // Formula and method for calculating coins into money
