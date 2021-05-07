@@ -10,9 +10,6 @@ public class VendingMachine {
 		int dimes; // whatever the user put into machine
 		int nickels; // whatever the user put into machine
 		double userMoney; // all of the users money after inputing all coins in the machine
-		final double chipsPrice = 1.25; // the price of chips that never changes
-		final double candiesPrice = .95; // the price of candies that never changes
-		final double cookiesPrice = .85; // the price of cookies that never changes
 
 // first menu screen for inserting coins
 		System.out.println("Please insert Quarters"); //tells user to insert his quarters;
@@ -41,13 +38,7 @@ public class VendingMachine {
 								// userMoney - cookiesPrice find the left over money nad convert it to quarters first then dimes then nickles
 								chipsQuantity --;
 								keepLooping = false; // means stop looping because the choice was valid.
-								double moneyRemaining = userMoney - chipsPrice;
-								if (moneyRemaining == 0) {
-									System.out.println("Have a nice day!");
-								}
-								else {
-									printChipChange (moneyRemaining);
-								}
+								printChipChange (userMoney, userChoice);
 							}
 							break;
 						case 2:
@@ -58,6 +49,7 @@ public class VendingMachine {
 								System.out.println("Please take your Candies");
 								candiesQuantity --;
 								keepLooping = false; // means stop looping because the choice was valid.
+								printChipChange (userMoney, userChoice);
 							}
 							break;
 						case 3:
@@ -68,31 +60,75 @@ public class VendingMachine {
 								System.out.println( "Please take your Cookies");	
 								cookiesQuantity --;
 								keepLooping = false; // means stop looping because the choice was valid.
+								printChipChange (userMoney, userChoice);
 							}
 							break;
 						default:
 					    	System.out.println("Invalid input please try again.\n");
 					    	break;
-					}// end of inner switch		
-				} // exitWhileLoop
-				//printChipChange ();
-				//printCandyChange();
-				//printCookieChange ();
-				
+					}// end of inner switch	1	
+				} // exitWhileLoopCase1
 				break;
 			case 2:
-				
+				while (keepLooping) {
+					System.out.println("Please choose a number: 2. Candies 3. Cookies");
+					int userChoice = getUserInput();
+					switch (userChoice) {
+					case 2:
+						if (candiesQuantity == 0) {
+							System.out.println("Sold out. Please make another choice");
+						}
+						else {
+							System.out.println("Please take your Candies");
+							candiesQuantity --;
+							keepLooping = false; // means stop looping because the choice was valid.
+							printChipChange (userMoney, userChoice);
+						}
+						break;
+					case 3:
+						if (cookiesQuantity == 0) {
+							System.out.println("Sold out. Please make another choice");
+						}
+						else {
+							System.out.println( "Please take your Cookies");	
+							cookiesQuantity --;
+							keepLooping = false; // means stop looping because the choice was valid.
+							printChipChange (userMoney, userChoice);
+						}
+						break;
+					default:
+				    	System.out.println("Invalid input please try again.\n");
+				    	break;
+					} //end of inner switch 2	
+				} // exitWhileLoopCase2
 				break;
 			case 3:
-				
+				while (keepLooping) {
+					System.out.println("Please choose a number: 3. Cookies");
+					int userChoice = getUserInput();
+					switch (userChoice) {
+					case 3:
+						if (cookiesQuantity == 0) {
+							System.out.println("Sold out. Please make another choice");
+						}
+						else {
+							System.out.println( "Please take your Cookies");	
+							cookiesQuantity --;
+							keepLooping = false; // means stop looping because the choice was valid.
+							printChipChange (userMoney, userChoice);
+						}
+						break;
+					default:
+				    	System.out.println("Invalid input please try again.\n");
+				    	break;
+					} //end of inner switch 3
+				} // exitWhileLoopCase3
 				break;
 			default:
-				
-			
+				System.out.println("Invalid input please try again.\n");
+		    	break;
 		}// end of outer switch	
-		//showMenu(userMoney, cookiesQuantity, candiesQuantity, chipsQuantity);
-		
-	}
+	}// end of main
 
 // Checks user validation by making sure user only inputs a positive int and nothing else
 	public static int getUserInput() { // name of method for user validation
@@ -138,19 +174,43 @@ public class VendingMachine {
 	
 	}
 	
-	public static void  printChipChange(double userMoneyLeft) {
-		int cents = (int) Math.round(userMoneyLeft * 100);
-		int quarters = cents / 25;
-		cents = cents % 25;
-		int dimes = cents / 10;
-		cents = cents % 10;
-		int nickels = cents / 5;
-		cents = cents % 5;
+	public static void  printChipChange(double moneyInserted, int userChoice) {
+		double chipsPrice = 1.25; // the price of chips that never changes
+		double candiesPrice = .95; // the price of candies that never changes
+		double cookiesPrice = .85; // the price of cookies that never changes
+		double moneyRemaining;
 		
-		System.out.println("Here are your cents: " + cents); 
-		System.out.println("Here are your Quarters: " + quarters); 
-		System.out.println("Here are your Dimes: " + dimes); 
-		System.out.println("Here are your Nickels: " + nickels); 
+
+		
+		switch (userChoice) {
+			case 1:
+				moneyRemaining = moneyInserted - chipsPrice;
+				break;
+			case 2:
+				moneyRemaining = moneyInserted - candiesPrice;
+				break;
+			default:
+				moneyRemaining = moneyInserted - cookiesPrice;
+				break;
+		}
+		//System.out.println("Your total change is: " + moneyRemaining); 
+		
+		if (moneyRemaining == 0) {
+			System.out.println("Have a nice day!");
+		}
+		else {
+			int cents = (int) Math.round(moneyRemaining * 100);
+			int quarters = cents / 25;
+			cents = cents % 25;
+			int dimes = cents / 10;
+			cents = cents % 10;
+			int nickels = cents / 5;
+			cents = cents % 5;
+			
+			System.out.println("Here are your Quarters: " + quarters); 
+			System.out.println("Here are your Dimes: " + dimes); 
+			System.out.println("Here are your Nickels: " + nickels);
+		}
 	}
 	
 	/**
